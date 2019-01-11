@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Calculadora Mi Peso Ideal</string>
+    <string name="title_calculator">Calculadora Mi Peso Ideal</string>
+    <string name="title_my_results">Mis Resultados</string>
+    <string name="title_charts">Mis avances</string>
+
+    <string name="boton_calculadora">Ir a la Calculadora</string>
+    <string name="bienvenida">Mídete, Conócete,\nConstrúyete</string>
+    <string name="boton_ver_graficas">Ver historial de resultados</string>
+    <string name="boton_consultar">Consultar avances</string>
+
+    <string name="nombre">Usuario (Nombre sin acentos)</string>
+    <string name="edad">Edad (años)</string>
+    <string name="peso">Peso (kg)</string>
+    <string name="sexo">Sexo:</string>
+    <string name="estatura">Estatura (m)</string>
+    <string name="actividad">Actividad física:</string>
+    <string name="cuello">Cuello (cm)</string>
+    <string name="cintura">Cintura (cm)</string>
+    <string name="cadera">Cadera (cm)</string>
+    <string name="medir">¿Cómo\nmedir?</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="boton">Calcular</string>
+    <string name="error_empty">Campo requerido</string>
+    <string name="error_edad">Valor entre 1 y 99 años</string>
+    <string name="error_peso">Ingrese el peso correcto</string>
+    <string name="error_estatura">Valor entre 1 y 2.5m</string>
+    <string name="error_cuello">Ingrese la medida correcta</string>
+    <string name="error_cintura">Ingrese la medida correcta</string>
+    <string name="error_cadera">Ingrese la medida correcta</string>
+
+    <string name="imc">IMC:</string>
+    <string name="mg">%MG:</string>
+    <string name="icc">ICC:\n</string>
+    <string name="calorias">Calorías\nnecesarias:</string>
+    <string name="boton_guardar">Guardar resultados</string>
+    <string name="boton_graficar">Ver mis avances</string>
+    <string name="seleccione">Seleccione con los botones de arriba los resultados que desee visualizar</string>
+
+    <string name="expMedir">Para medirse solo requiere de una cinta métrica. Todas sus medidas debe tomarlas en centímetros para obtener resultados correctos. A continuación encontrará una explicación detallada de como realizar cada medida.</string>
+    <string name="expCuello">La circunferencia del cuello se mide por debajo de la laringe con la parte delantera de la cinta métrica inclinada hacia abajo.</string>
+    <string name="expCintura">La cintura se mide a la altura del ombligo en hombres y en la parte más estrecha en mujeres.</string>
+    <string name="expCadera">La cinta métrica debe colocarse en la parte más ancha de la cadera.</string>
+    <string name="expActividad">Se considera "Nula" para personas que nunca hacen ejercicio, "Leve" para quienes hacen ejercicios cardiovasculares una o dos veces por semana, "Moderada" es equivalente a realizar ejercicio fitness tres o cuatro veces por semana e "Intensa" aplica para deportistas profesionales.</string>
+
+    <string name="nombreActivityImcMg">IMC y %MG</string>
+    <string name="nombreActivityIce">Indice Cintura/Cadera</string>
+    <string name="nombreActivityCalorias">Requerimientos calóricos</string>
+    <string name="tituloImagenIMC">Índice de masa \ncorporal</string>
+    <string name="tituloImagenMG">Porcentaje de \nmasa grasa</string>
+
+    <string name="des3">Su peso actual es sumamente menor del recomendado, corre riesgo de sufrir de desnutrición grado 3, la cual tiene muy severas consecuencias en la salud, debe acudir al médico inmediatamente para recibir atención clínica y nutricional.</string>
+    <string name="des2">Su peso es mucho menor al recomendado, corre riesgo de padecer desnutrición grado 2, lo cual puede afectar gravemente su salud, debe acudir pronto al médico para que le realicen una valoración clínica y nutricional.</string>
+    <string name="des1">Su peso es menor al recomendado, tiene riesgo de presentar desnutrición grado 1, que puede afectar su salud, es aconsejable que acuda al médico para que le realicen una valoración nutricional.</string>
+    <string name="normal">Su peso se encuentra en el rango recomendado, procure seguir una dieta balanceada y realizar actividad física de dos a tres veces por semana para mantener una buena salud.</string>
+    <string name="normal_grasa">Su peso se encuentra en el rango recomendado, sin embargo su porcentaje de masa grasa es alto, procure seguir una dieta balanceada y realizar actividad física de dos a tres veces por semana para prevenir el riesgo de padecer sobrepeso u obesidad.</string>
+    <string name="musculos">Su peso se halla por encima del recomendado, sin embargo, el porcentaje de masa grasa en su cuerpo está en el rango normal, así que probablemente su sobrepeso se deba más a músculo que a grasa.</string>
+
+    <string name="musculos_hombre_2">Su peso se halla por encima del rango normal, sin embargo, el porcentaje de masa grasa en su cuerpo está por debajo del promedio, así que seguramente lejos de tener sobrepeso usted presenta una complexión sana y musculosa.</string>
+    <string name="sobrepeso">Su peso está ligeramente por encima del recomendado, así como su porcentaje de masa grasa, es aconsejable que asista a un nutriólogo para recibir orientación nutricional y alcanzar su peso ideal.</string>
+    <string name="ob1">Su peso es mayor al recomendado y su porcentaje de masa grasa también, debe acudir con un nutriólogo para recibir orientación nutricional, así como realizar ejercicio cardiovascular durante 30 minutos de 2 a 3 veces por semana para alcanzar su peso ideal.</string>
+    <string name="ob2">Su peso es mucho mayor que el recomendado y su porcentaje de masa grasa también se halla encima del rango normal, debe acudir pronto a un médico para que le realicen una valoración clínica y nutricional.</string>
+    <string name="ob3">Su peso es sumamente mayor que lo recomendado y su porcentaje de grasa corporal también esta por encima del rango normal, debe acudir inmediatamente a un médico para que le realicen una valoración clínica y nutricional.</string>
+
+    <string name="musculos_mujer_2">Su peso se halla por encima del rango normal, sin embargo el porcentaje de masa grasa en su cuerpo está por debajo del promedio, así que seguramente usted no tiene sobrepeso y por el contrario presenta una complexión sana y esbelta.</string>
+
+    <string name="icc_normal_hombre">Su Indice Cintura/Cadera es menor a 0.94, por lo que su riesgo de contraer enfermedades cardiovasculares relacionadas con adiposidad abdominal (grasa acumulada en la zona abdominal del cuerpo) probablemente sea bajo.</string>
+    <string name="icc_alto_hombre">Su Indice Cintura/Cadera es mayor a 0.94, lo cual indica que usted presenta adiposidad abdominal (grasa acumulada en la zona abdominal del cuerpo), la cual se asocia con un riesgo elevado de presentar enfermedades cardiovasculares. Es recomendable que mejore sus hábitos alimenticios y comience a realizar más actividad física para reducir su talla de cintura.</string>
+    <string name="icc_normal_mujer">Su Indice Cintura/Cadera es menor a 0.84, por lo que su riesgo de contraer enfermedades cardiovasculares relacionadas con adiposidad abdominal (grasa acumulada en la zona abdominal del cuerpo) probablemente sea bajo.</string>
+    <string name="icc_alto_mujer">Su Indice Cintura/Cadera es mayor a 0.84, lo cual indica que usted presenta adiposidad abdominal (grasa acumulada en la zona abdominal del cuerpo), la cual se asocia con un riesgo elevado de presentar enfermedades cardiovasculares. Es recomendable que mejore sus hábitos alimenticios y comience a realizar más actividad física para reducir su talla de cintura.</string>
+
+    <string name="GEB">GEB =</string>
+    <string name="ETA">ETA =</string>
+    <string name="AF">AF =</string>
+    <string name="GET">GET =</string>
+
+    <string name="expGEB">Gasto energético basal: También se le conoce como gasto energético en reposo y es la energía que requiere el organismo para realizar sus actividades fundamentales en reposo y en ayunas, tales como la conservación del tono muscular y la temperatura corporal, la circulación, la respiración, actividades celulares, etc. </string>
+    <string name="expAF">Gasto energético por actividad física: Mientrás mayor sea su actividad física, más calorías requerirá su organismo para reponer la energía consumida y viceversa.</string>
+    <string name="expETA">Efecto termogénico de los alimentos: Corresponde a la energía que se consume por el trabajo de la digestión y absorción de los alimentos. </string>
+    <string name="expGET">Gasto energético total: Son las calorías totales que debe consumir diariamente para mantener su peso actual y se calcula sumando su gasto energético basal (GEB), el efecto termogénico de los alimentos que consume (ETA) y su gasto energético por la cantidad de actividad física que realiza (AF).</string>
+    <string name="expCalorias">Estas son las calorías que requiere consumir diariamente para mantener su peso actual. En caso de presentar sobrepeso u obesidad es recomendable que le reste entre 300 a 500kcal al resultado total (GET) y esa será la cantidad de calorías que deberá consumir diariamente para comenzar a bajar de peso y alcanzar su talla ideal. En todos los casos se recomienda acudir con un nutriólogo para recibir mejor orientación.</string>
+
+    <string name="title_activity_results_presentation">ResultsPresentationActivity</string>
+    <string name="tab_text_1">IMC</string>
+    <string name="tab_text_2">%MG</string>
+    <string name="tab_text_3">ICC</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+</resources>
+

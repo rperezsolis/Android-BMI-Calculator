@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--spaces for margins, paddings, etc-->
+    <dimen name="space_smallest">5dp</dimen>
+    <dimen name="space_small">10dp</dimen>
+    <dimen name="space_medium">15dp</dimen>
+    <dimen name="space_big">20dp</dimen>
+
+    <!--text sizes-->
+    <dimen name="text_h1">96sp</dimen><!--light-->
+    <dimen name="text_h2">60sp</dimen><!--light-->
+    <dimen name="text_h3">48sp</dimen><!--regular-->
+    <dimen name="text_h4">34sp</dimen><!--regular-->
+    <dimen name="text_h5">24sp</dimen><!--regular-->
+    <dimen name="text_h6">20sp</dimen><!--medium-->
+    <dimen name="text_subtitle_1">16sp</dimen><!--regular-->
+    <dimen name="text_subtitle_2">14sp</dimen><!--medium-->
+    <dimen name="text_body_1">16sp</dimen><!--regular-->
+    <dimen name="text_body_2">14sp</dimen><!--regular-->
+    <dimen name="text_button">14sp</dimen><!--medium-->
+    <dimen name="text_caption">12sp</dimen><!--regular-->
+    <dimen name="text_overline">10sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen><!--regular-->
+
+</resources>

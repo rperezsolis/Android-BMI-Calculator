@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <LinearLayout
+            android:id="@+id/results_imc_mg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/space_medium"
+            android:layout_marginLeft="@dimen/space_medium"
+            android:layout_marginRight="@dimen/space_medium"
+            android:background="@color/colorPrimary"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/space_medium"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/IMC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/imc"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <TextView
+                    android:id="@+id/result_imc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/space_medium"
+                android:layout_weight="1"
+                android:weightSum="7">
+
+                <TextView
+                    android:id="@+id/MG"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/mg"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <TextView
+                    android:id="@+id/result_mg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_help"
+                    android:onClick="explicar"
+                    android:layout_gravity="end"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/results_icc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_medium"
+                android:layout_marginLeft="@dimen/space_medium"
+                android:layout_marginRight="@dimen/space_medium"
+                android:paddingBottom="@dimen/space_medium"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/ICC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icc"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <TextView
+                    android:id="@+id/result_icc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="@dimen/space_medium"
+                    android:src="@drawable/ic_help"
+                    android:onClick="explicarIcc"
+                    android:layout_gravity="end"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resultados_calorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_medium"
+                android:layout_marginEnd="@dimen/space_medium"
+                android:paddingBottom="@dimen/space_medium"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/Calorias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calorias"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <TextView
+                    android:id="@+id/result_calories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_h5"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="@dimen/space_small"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="@dimen/space_medium"
+                    android:src="@drawable/ic_help"
+                    android:onClick="explicarCalorias"
+                    android:layout_gravity="end"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/guardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium"
+            android:layout_marginLeft="@dimen/space_medium"
+            android:layout_marginRight="@dimen/space_medium"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_button"
+            android:text="@string/boton_guardar"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/graficar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium"
+            android:layout_marginLeft="@dimen/space_medium"
+            android:layout_marginRight="@dimen/space_medium"
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_button"
+            android:text="@string/boton_consultar"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="@dimen/space_medium"/>
+
+</LinearLayout>
