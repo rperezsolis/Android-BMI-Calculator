@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBase;
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBaseContract;
+import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
+import com.example.rafael_perez.mi_peso_ideal.Models.ResultModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ResultsPresentationActivity extends AppCompatActivity {
+public class ProgressPresentationActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public static final Object sDataLock = new Object();  //Object for intrinsic lock
@@ -56,17 +56,18 @@ public class ResultsPresentationActivity extends AppCompatActivity {
 
         name = getIntent().getExtras().getString("name");
 
-        final DataBase db_results = new DataBase(ResultsPresentationActivity.this, DataBaseContract.DATABASE_NAME, null, DataBaseContract.DATABASE_VERSION);
+        final DataBaseHelper db_results = new DataBaseHelper(ProgressPresentationActivity.this);
 
         //Extraemos los registros de la base de datos y los guardamos en los arrays que utilizarán las gráficas
-        synchronized (ResultsPresentationActivity.sDataLock){
-            for (int i = 0; i < db_results.leerRegistros(name).size(); i++) {
-                values_imc.add(db_results.leerRegistros(name).get(i).getIMC());
-                values_mg.add(db_results.leerRegistros(name).get(i).getMG());
-                values_icc.add(db_results.leerRegistros(name).get(i).getICC());
+        synchronized (ProgressPresentationActivity.sDataLock){
+            ArrayList<ResultModel> results_list = db_results.readData(name);
+            for (int i = 0; i < results_list.size(); i++) {
+                values_imc.add(results_list.get(i).getIMC());
+                values_mg.add(results_list.get(i).getMG());
+                values_icc.add(results_list.get(i).getICC());
                 try {
                     DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = format.parse(db_results.leerRegistros(name).get(i).getFecha());
+                    Date date = format.parse(results_list.get(i).getFecha());
                     values_dates.add(date);
                 } catch (ParseException e) {
                     e.printStackTrace();

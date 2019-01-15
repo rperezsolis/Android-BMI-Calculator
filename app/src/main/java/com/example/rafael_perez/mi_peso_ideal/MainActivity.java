@@ -14,8 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBase;
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBaseContract;
+import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner_physical_activity;
@@ -104,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goMyResults(){
-        final DataBase db_results = new DataBase(this,DataBaseContract.DATABASE_NAME, null, DataBaseContract.DATABASE_VERSION);
-        db_lenght = db_results.leerRegistros(et_name.getText().toString()).size();
+        final DataBaseHelper db_results = new DataBaseHelper(this);
+        db_lenght = db_results.readData(et_name.getText().toString()).size();
         if (db_lenght == 0){
-            Toast.makeText(getApplicationContext(),"El nombre de usuario no existe", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.no_user), Toast.LENGTH_SHORT).show();
         }else {
-            Intent intent = new Intent(MainActivity.this, ResultsPresentationActivity.class);
+            Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);
             intent.putExtra("name", et_name.getText().toString());
             startActivity(intent);
             overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
@@ -275,13 +274,13 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
     }
 
-    public void sexoHombre(View h){
+    public void maleGenre(View h){
         genre = 1;
         iv_man.setImageResource(R.drawable.silueta_normal_hombre);
         iv_woman.setImageResource(R.drawable.silueta_normal_mujer_marca_agua);
     }
 
-    public void sexoMujer(View m){
+    public void femaleGenre(View m){
         genre = 2;
         iv_woman.setImageResource(R.drawable.silueta_normal_mujer);
         iv_man.setImageResource(R.drawable.silueta_normal_hombre_marca_agua);
@@ -293,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);*/
     }
 
-    public void limpiar (View limpiar){
+    public void cleanForm(View limpiar){
         et_name.setText(null);
         et_age.setText(null);
         et_weight.setText(null);
@@ -317,6 +316,6 @@ public class MainActivity extends AppCompatActivity {
         et_hip.clearFocus();
         iv_man.setImageResource(R.drawable.silueta_normal_hombre_marca_agua);
         iv_woman.setImageResource(R.drawable.silueta_normal_mujer_marca_agua);
-        genre =0;
+        genre = 0;
     }
 }

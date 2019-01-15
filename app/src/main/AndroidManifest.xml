@@ -22,10 +22,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ResultsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ChartsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ResultsPresentationActivity"
+            android:name=".ProgressPresentationActivity"
             android:label="@string/title_activity_results_presentation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

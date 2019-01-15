@@ -12,8 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBase;
-import com.example.rafael_perez.mi_peso_ideal.DataBase.DataBaseContract;
+import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,36 +57,35 @@ public class ResultsActivity extends AppCompatActivity {
         MG   = data[2];
         ICC = data[3];
         GET  = data[4];
-
         GEB = calories[0];
         ETA = calories[1];
         AF  = calories[2];
 
         //Guardamos la fecha;
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date Date = new Date();
-        date = String.valueOf(formato.format(Date));
+        date = String.valueOf(dateFormat.format(Date));
 
         //Instancia de la base de data:
-        final DataBase db_results = new DataBase(this,DataBaseContract.DATABASE_NAME, null, DataBaseContract.DATABASE_VERSION);
+        final DataBaseHelper db_helper = new DataBaseHelper(this);
 
         Button guardar = findViewById(R.id.guardar);
         guardar.setOnClickListener(v -> {
             synchronized (ResultsActivity.sDataLock){
-                db_results.openDB();//abrimos la base de datos
-                db_results.insertData(name, date, IMC, MG, ICC);//insertamos los registros en la base de datos
-                db_results.closeDB();
-                Toast.makeText(getApplicationContext(),"Sus resultados se han guardado en la memoría", Toast.LENGTH_SHORT).show();
+                db_helper.openDB();//abrimos la base de datos
+                db_helper.insertData(name, date, IMC, MG, ICC);//insertamos los registros en la base de datos
+                db_helper.closeDB();
+                Toast.makeText(getApplicationContext(),getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button graficar = findViewById(R.id.graficar);
-        graficar.setOnClickListener(v -> {
-            db_lenght = db_results.leerRegistros(name).size();
+        Button plot = findViewById(R.id.graficar);
+        plot.setOnClickListener(v -> {
+            db_lenght = db_helper.readData(name).size();
             if (db_lenght==0){
-                Toast.makeText(getApplicationContext(),"El nombre de usuario no existe", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.no_user), Toast.LENGTH_SHORT).show();
             }else {
-                Intent intent = new Intent(ResultsActivity.this, ResultsPresentationActivity.class);
+                Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);
                 intent.putExtra("name", name);
                 startActivity(intent);
                 overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);

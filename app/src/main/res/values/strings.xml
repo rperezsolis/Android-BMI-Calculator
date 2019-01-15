@@ -29,12 +29,16 @@
     <string name="error_cintura">Ingrese la medida correcta</string>
     <string name="error_cadera">Ingrese la medida correcta</string>
 
+    <string name="no_user">Este usuario aún no tiene registros guardados</string>
+    <string name="select_genre">Seleccione el sexo</string>
+
     <string name="imc">IMC:</string>
     <string name="mg">%MG:</string>
     <string name="icc">ICC:\n</string>
     <string name="calorias">Calorías\nnecesarias:</string>
     <string name="boton_guardar">Guardar resultados</string>
     <string name="boton_graficar">Ver mis avances</string>
+    <string name="data_saved">Los resultados se han guardado en la memoría</string>
     <string name="seleccione">Seleccione con los botones de arriba los resultados que desee visualizar</string>
 
     <string name="expMedir">Para medirse solo requiere de una cinta métrica. Todas sus medidas debe tomarlas en centímetros para obtener resultados correctos. A continuación encontrará una explicación detallada de como realizar cada medida.</string>

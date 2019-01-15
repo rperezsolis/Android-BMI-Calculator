@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ResultsPresentationActivity$PlaceholderFragment">
+    tools:context=".ProgressPresentationActivity$PlaceholderFragment">
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"

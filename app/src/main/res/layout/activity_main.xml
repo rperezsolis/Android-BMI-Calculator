@@ -117,7 +117,7 @@
                             android:paddingRight="10dp"
                             android:src="@drawable/silueta_normal_hombre_marca_agua"
                             android:layout_weight="1"
-                            android:onClick="sexoHombre"
+                            android:onClick="maleGenre"
                             />
 
                         <ImageView
@@ -127,7 +127,7 @@
                             android:paddingLeft="10dp"
                             android:src="@drawable/silueta_normal_mujer_marca_agua"
                             android:layout_weight="1"
-                            android:onClick="sexoMujer"
+                            android:onClick="femaleGenre"
                             />
 
                     </LinearLayout>
@@ -240,7 +240,7 @@
                             android:textSize="@dimen/text_button"
                             android:textColor="@android:color/white"
                             android:background="@color/colorPrimary"
-                            android:onClick="limpiar" />
+                            android:onClick="cleanForm" />
 
                     </LinearLayout>
 
