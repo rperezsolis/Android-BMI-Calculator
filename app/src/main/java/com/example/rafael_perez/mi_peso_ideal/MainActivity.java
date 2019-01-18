@@ -1,8 +1,9 @@
 package com.example.rafael_perez.mi_peso_ideal;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner_physical_activity;
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView iv_woman;
     int genre = 0;
     int genre_state;
-    int db_lenght;
     float GEB, ETA, AF, GET, IMC, MG, ICC;
 
     @Override
@@ -103,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goMyResults(){
-        final DataBaseHelper db_results = new DataBaseHelper(this);
-        db_lenght = db_results.readData(et_name.getText().toString()).size();
-        if (db_lenght == 0){
+        String[] projection = {_ID};
+        Cursor cursor = getContentResolver().query(CONTENT_URI, projection, null, null, null);
+        if (cursor!=null && cursor.getCount()==0){
             Toast.makeText(getApplicationContext(), getString(R.string.no_user), Toast.LENGTH_SHORT).show();
         }else {
             Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);

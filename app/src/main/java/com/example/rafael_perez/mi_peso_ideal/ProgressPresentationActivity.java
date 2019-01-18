@@ -1,5 +1,6 @@
 package com.example.rafael_perez.mi_peso_ideal;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
 import com.example.rafael_perez.mi_peso_ideal.Models.ResultModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
@@ -24,6 +24,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_DATE;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_ICC;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_IMC;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_MG;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_USER_NAME;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
 
 public class ProgressPresentationActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -56,11 +64,19 @@ public class ProgressPresentationActivity extends AppCompatActivity {
 
         name = getIntent().getExtras().getString("name");
 
-        final DataBaseHelper db_results = new DataBaseHelper(ProgressPresentationActivity.this);
-
         //Extraemos los registros de la base de datos y los guardamos en los arrays que utilizarán las gráficas
         synchronized (ProgressPresentationActivity.sDataLock){
-            ArrayList<ResultModel> results_list = db_results.readData(name);
+            ArrayList<ResultModel> results_list= new ArrayList<>();
+            String[] projection = {_ID, COLUMN_USER_NAME, COLUMN_DATE, COLUMN_IMC, COLUMN_MG, COLUMN_ICC};
+            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    ResultModel result_model = new ResultModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                            cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5));
+                    results_list.add(result_model);
+                } while (cursor.moveToNext());
+                cursor.close();
+            }
             for (int i = 0; i < results_list.size(); i++) {
                 values_imc.add(results_list.get(i).getIMC());
                 values_mg.add(results_list.get(i).getMG());

@@ -26,6 +26,10 @@
             android:name=".ProgressPresentationActivity"
             android:label="@string/title_activity_results_presentation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <provider
+            android:authorities="com.example.rafael_perez.mi_peso_ideal"
+            android:name=".Data.ProgressProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

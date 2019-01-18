@@ -1,9 +1,12 @@
 package com.example.rafael_perez.mi_peso_ideal;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,10 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rafael_perez.mi_peso_ideal.Data.DataBaseHelper;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_DATE;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_ICC;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_IMC;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_MG;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_USER_NAME;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
+import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
 
 public class ResultsActivity extends AppCompatActivity {
     public static final Object sDataLock = new Object();  //Object for intrinsic lock
@@ -26,9 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
     float genre, IMC, MG, ICC, GET, GEB, ETA, AF;
     LinearLayout results_imc_mg;
     LinearLayout results_icc;
-    //LineChart lineChart;
     String date;
-    int db_lenght;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +73,29 @@ public class ResultsActivity extends AppCompatActivity {
         Date Date = new Date();
         date = String.valueOf(dateFormat.format(Date));
 
-        //Instancia de la base de data:
-        final DataBaseHelper db_helper = new DataBaseHelper(this);
-
         Button guardar = findViewById(R.id.guardar);
         guardar.setOnClickListener(v -> {
             synchronized (ResultsActivity.sDataLock){
-                db_helper.openDB();//abrimos la base de datos
-                db_helper.insertData(name, date, IMC, MG, ICC);//insertamos los registros en la base de datos
-                db_helper.closeDB();
-                Toast.makeText(getApplicationContext(),getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+                ContentValues values = new ContentValues();//esta clase ContentValues permite almacenar un conjunto de datos
+                values.put(COLUMN_USER_NAME, name);
+                values.put(COLUMN_DATE, date);
+                values.put(COLUMN_IMC, IMC);
+                values.put(COLUMN_MG, MG);
+                values.put(COLUMN_ICC, ICC);
+                Uri uri = getContentResolver().insert(CONTENT_URI, values);
+                if (uri == null) {
+                    Toast.makeText(this, getString(R.string.data_do_not_saved), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         Button plot = findViewById(R.id.graficar);
         plot.setOnClickListener(v -> {
-            db_lenght = db_helper.readData(name).size();
-            if (db_lenght==0){
+            String[] projection = {_ID};
+            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, null, null, null);
+            if (cursor==null || cursor.getCount()==0){
                 Toast.makeText(getApplicationContext(),getString(R.string.no_user), Toast.LENGTH_SHORT).show();
             }else {
                 Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);
