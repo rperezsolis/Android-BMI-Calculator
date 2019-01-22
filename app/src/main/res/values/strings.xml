@@ -22,7 +22,7 @@
     <string name="limpiar">Limpiar</string>
     <string name="boton">Calcular</string>
     <string name="error_empty">Campo requerido</string>
-    <string name="error_edad">Valor entre 1 y 99 años</string>
+    <string name="error_edad">Valor entre 15 y 99 años</string>
     <string name="error_peso">Ingrese el peso correcto</string>
     <string name="error_estatura">Valor entre 1 y 2.5m</string>
     <string name="error_cuello">Ingrese la medida correcta</string>

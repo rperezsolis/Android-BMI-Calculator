@@ -13,7 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:titleTextColor="@android:color/white"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <LinearLayout
             android:id="@+id/results_imc_mg"
@@ -206,7 +207,7 @@
             android:textSize="@dimen/text_button"
             android:text="@string/boton_consultar"
             android:textColor="@android:color/white"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:layout_marginBottom="@dimen/space_medium"/>
 
 </LinearLayout>

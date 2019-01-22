@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/container">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".Form.View.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -240,6 +241,7 @@
                             android:textSize="@dimen/text_button"
                             android:textColor="@android:color/white"
                             android:background="@color/colorPrimary"
+                            android:layout_marginBottom="@dimen/space_small"
                             android:onClick="cleanForm" />
 
                     </LinearLayout>
@@ -265,7 +267,8 @@
                     android:textSize="@dimen/text_button"
                     android:textColor="@android:color/white"
                     android:background="@color/colorAccent"
-                    android:text="@string/boton_consultar" />
+                    android:text="@string/boton_consultar"
+                    android:layout_marginBottom="@dimen/space_small" />
 
             </LinearLayout>
 

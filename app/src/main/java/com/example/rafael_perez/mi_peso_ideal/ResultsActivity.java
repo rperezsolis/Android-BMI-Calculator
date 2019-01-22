@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +77,7 @@ public class ResultsActivity extends AppCompatActivity {
         Button guardar = findViewById(R.id.guardar);
         guardar.setOnClickListener(v -> {
             synchronized (ResultsActivity.sDataLock){
-                ContentValues values = new ContentValues();//esta clase ContentValues permite almacenar un conjunto de datos
+                ContentValues values = new ContentValues();  //ContentValues allows to store a data set
                 values.put(COLUMN_USER_NAME, name);
                 values.put(COLUMN_DATE, date);
                 values.put(COLUMN_IMC, IMC);
@@ -94,8 +95,10 @@ public class ResultsActivity extends AppCompatActivity {
         Button plot = findViewById(R.id.graficar);
         plot.setOnClickListener(v -> {
             String[] projection = {_ID};
-            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, null, null, null);
-            if (cursor==null || cursor.getCount()==0){
+            String selection = COLUMN_USER_NAME + "=?";
+            String[] selectionArgs = new String[] {name};
+            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, selection, selectionArgs, null);
+            if (cursor!=null && cursor.getCount()==0 || TextUtils.isEmpty(name)){
                 Toast.makeText(getApplicationContext(),getString(R.string.no_user), Toast.LENGTH_SHORT).show();
             }else {
                 Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);

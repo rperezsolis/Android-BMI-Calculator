@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.rafael_perez.mi_peso_ideal.Models.ResultModel;
+import com.example.rafael_perez.mi_peso_ideal.Pojo.ResultModel;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
