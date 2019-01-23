@@ -1,7 +1,6 @@
 package com.example.rafael_perez.mi_peso_ideal.Form.View;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
+import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
 import com.example.rafael_perez.mi_peso_ideal.Form.Presenter.MainPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Form.InterfaceForm;
 import com.example.rafael_perez.mi_peso_ideal.Preferences;
@@ -22,12 +23,9 @@ import com.example.rafael_perez.mi_peso_ideal.R;
 import com.example.rafael_perez.mi_peso_ideal.ResultsActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_USER_NAME;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
-
-public class MainActivity extends AppCompatActivity implements InterfaceForm.View {
+public class MainActivity extends AppCompatActivity implements InterfaceForm.View, InterfaceDBQuery.View {
     private Spinner spinner_physical_activity;
     private EditText et_name, et_age, et_weight, et_height, et_neck, et_waist, et_hip;
     private ImageView iv_man;
@@ -37,13 +35,15 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
     private int genre_state;
     float[] data;
     float[] calories;
-    private InterfaceForm.Presenter presenter;
+    private InterfaceForm.Presenter formPresenter;
+    private InterfaceDBQuery.Presenter queryPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        presenter = new MainPresenter(this);
+        formPresenter = new MainPresenter(this);
+        queryPresenter = new DBQueryPresenter(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_calculator);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
 
         if (badData(age_f, weight_f, height_f, neck_f, waist_f, hip_f)) return;
 
-        presenter.calculate(age_f, weight_f, height_f, neck_f, waist_f, hip_f, genre, physical_activity);
+        formPresenter.calculate(age_f, weight_f, height_f, neck_f, waist_f, hip_f, genre, physical_activity);
 
         preferences.setUserName(et_name.getText().toString());  //assign to preferences the last inserted name
 
@@ -183,21 +183,30 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
     }
 
     private void seeMyProgress(){
-        String[] projection = {_ID};
-        String selection = COLUMN_USER_NAME + "=?";
-        String[] selectionArgs = new String[] {et_name.getText().toString()};
-        Cursor cursor = getContentResolver().query(CONTENT_URI, projection, selection, selectionArgs, null);
-        if (cursor!=null && cursor.getCount()==0 || TextUtils.isEmpty(et_name.getText())){
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.container),getString(R.string.no_user), Snackbar.LENGTH_SHORT);
-            snackbar.show();
-            cursor.close();
-        } else {
-            Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);
-            intent.putExtra("name", et_name.getText().toString());
-            startActivity(intent);
-            overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
-        }
+        queryPresenter.checkForUserName(this, et_name.getText().toString());
     }
+
+    @Override
+    public void goToMyProgress() {
+        Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);
+        intent.putExtra("name", et_name.getText().toString());
+        startActivity(intent);
+        overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
+    }
+
+    @Override
+    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
+
+    @Override
+    public void noUser() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.container),getString(R.string.no_user), Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
+
+    @Override
+    public void saved() {}
+    @Override
+    public void notSaved() {}
 
     public void maleGenre(View h){
         genre = 1;

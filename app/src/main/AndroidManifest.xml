@@ -19,9 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Form.View.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ResultsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ProgressPresentationActivity"
             android:label="@string/title_activity_results_presentation"

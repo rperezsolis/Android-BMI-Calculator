@@ -1,33 +1,25 @@
 package com.example.rafael_perez.mi_peso_ideal;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
+import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_DATE;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_ICC;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_IMC;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_MG;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_USER_NAME;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
-
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity implements InterfaceDBQuery.View {
     public static final Object sDataLock = new Object();  //Object for intrinsic lock
     float data[] = new float[5];
     float calories[] = new float[3];
@@ -37,11 +29,14 @@ public class ResultsActivity extends AppCompatActivity {
     LinearLayout results_imc_mg;
     LinearLayout results_icc;
     String date;
+    private InterfaceDBQuery.Presenter queryPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+        queryPresenter = new DBQueryPresenter(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_my_results);
         setSupportActionBar(toolbar);
@@ -74,39 +69,11 @@ public class ResultsActivity extends AppCompatActivity {
         Date Date = new Date();
         date = String.valueOf(dateFormat.format(Date));
 
-        Button guardar = findViewById(R.id.guardar);
-        guardar.setOnClickListener(v -> {
-            synchronized (ResultsActivity.sDataLock){
-                ContentValues values = new ContentValues();  //ContentValues allows to store a data set
-                values.put(COLUMN_USER_NAME, name);
-                values.put(COLUMN_DATE, date);
-                values.put(COLUMN_IMC, IMC);
-                values.put(COLUMN_MG, MG);
-                values.put(COLUMN_ICC, ICC);
-                Uri uri = getContentResolver().insert(CONTENT_URI, values);
-                if (uri == null) {
-                    Toast.makeText(this, getString(R.string.data_do_not_saved), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        Button btn_save_data = findViewById(R.id.guardar);
+        btn_save_data.setOnClickListener(v -> queryPresenter.saveResults(sDataLock, this, name, date, IMC, MG, ICC));
 
         Button plot = findViewById(R.id.graficar);
-        plot.setOnClickListener(v -> {
-            String[] projection = {_ID};
-            String selection = COLUMN_USER_NAME + "=?";
-            String[] selectionArgs = new String[] {name};
-            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, selection, selectionArgs, null);
-            if (cursor!=null && cursor.getCount()==0 || TextUtils.isEmpty(name)){
-                Toast.makeText(getApplicationContext(),getString(R.string.no_user), Toast.LENGTH_SHORT).show();
-            }else {
-                Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);
-                intent.putExtra("name", name);
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
-            }
-        });
+        plot.setOnClickListener(v -> queryPresenter.checkForUserName(this, name));
 
         if (IMC<=16){
             results_imc_mg.setBackgroundColor(Color.parseColor("#FF1744"));//desnutricion 3
@@ -171,6 +138,35 @@ public class ResultsActivity extends AppCompatActivity {
         txt_mg.setText(String.format("%.2f", MG));
         txt_icc.setText(String.format("%.2f", ICC));
         txt_calories.setText(String.format("%.0f", GET));
+    }
+
+    @Override
+    public void goToMyProgress() {
+        Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);
+        intent.putExtra("name", name);
+        startActivity(intent);
+        overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
+    }
+
+    @Override
+    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
+
+    @Override
+    public void noUser() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.container), getString(R.string.no_user), Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
+
+    @Override
+    public void saved() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.container), getString(R.string.data_saved), Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
+
+    @Override
+    public void notSaved() {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.container), getString(R.string.data_do_not_saved), Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
     @Override

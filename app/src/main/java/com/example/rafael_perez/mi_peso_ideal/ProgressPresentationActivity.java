@@ -1,6 +1,5 @@
 package com.example.rafael_perez.mi_peso_ideal;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,27 +12,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.rafael_perez.mi_peso_ideal.Pojo.ResultModel;
+
+import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
+import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_DATE;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_ICC;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_IMC;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_MG;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COLUMN_USER_NAME;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
-import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
-
-public class ProgressPresentationActivity extends AppCompatActivity {
+public class ProgressPresentationActivity extends AppCompatActivity implements InterfaceDBQuery.View {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public static final Object sDataLock = new Object();  //Object for intrinsic lock
@@ -45,16 +35,20 @@ public class ProgressPresentationActivity extends AppCompatActivity {
     static LineGraphSeries<DataPoint> imc_series;
     static LineGraphSeries<DataPoint> mg_series;
     static LineGraphSeries<DataPoint> icc_series;
+    private InterfaceDBQuery.Presenter queryPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_presentation);
+        queryPresenter = new DBQueryPresenter(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_charts);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -64,37 +58,7 @@ public class ProgressPresentationActivity extends AppCompatActivity {
 
         name = getIntent().getExtras().getString("name");
 
-        //Extraemos los registros de la base de datos y los guardamos en los arrays que utilizarán las gráficas
-        synchronized (ProgressPresentationActivity.sDataLock){
-            ArrayList<ResultModel> results_list= new ArrayList<>();
-            String[] projection = {_ID, COLUMN_USER_NAME, COLUMN_DATE, COLUMN_IMC, COLUMN_MG, COLUMN_ICC};
-            Cursor cursor = getContentResolver().query(CONTENT_URI, projection, null, null, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    ResultModel result_model = new ResultModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
-                            cursor.getDouble(3), cursor.getDouble(4), cursor.getDouble(5));
-                    results_list.add(result_model);
-                } while (cursor.moveToNext());
-                cursor.close();
-            }
-            for (int i = 0; i < results_list.size(); i++) {
-                values_imc.add(results_list.get(i).getIMC());
-                values_mg.add(results_list.get(i).getMG());
-                values_icc.add(results_list.get(i).getICC());
-                try {
-                    DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    Date date = format.parse(results_list.get(i).getFecha());
-                    values_dates.add(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (values_imc!=null && values_imc.size()>0){
-            imc_series = createLineGraphSeries(values_imc, values_dates);
-            mg_series = createLineGraphSeries(values_mg, values_dates);
-            icc_series = createLineGraphSeries(values_icc, values_dates);
-        }
+        queryPresenter.getData(sDataLock, this, values_imc, values_mg, values_icc, values_dates);
     }
 
     private LineGraphSeries<DataPoint> createLineGraphSeries(ArrayList<Double> values, ArrayList<Date> values_dates){
@@ -118,6 +82,23 @@ public class ProgressPresentationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void goToMyProgress() { }
+
+    @Override
+    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
+        imc_series = createLineGraphSeries(values_imc, values_dates);
+        mg_series = createLineGraphSeries(values_mg, values_dates);
+        icc_series = createLineGraphSeries(values_icc, values_dates);
+    }
+
+    @Override
+    public void noUser() { }
+    @Override
+    public void saved() { }
+    @Override
+    public void notSaved() { }
+
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -135,7 +116,6 @@ public class ProgressPresentationActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_results_presentation, container, false);
 
-            //TODO: Aqui se debe agregar la gráfica al rootView.
             GraphView graph = rootView.findViewById(R.id.graph);
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1:
