@@ -21,7 +21,7 @@
         <activity android:name=".Form.View.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ResultsActivity"
+        <activity android:name=".Results.View.ResultsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
         <activity

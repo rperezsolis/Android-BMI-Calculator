@@ -26,7 +26,6 @@ import java.util.Date;
 public class ProgressPresentationActivity extends AppCompatActivity implements InterfaceDBQuery.View {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    public static final Object sDataLock = new Object();  //Object for intrinsic lock
     String name;
     ArrayList<Double> values_imc = new ArrayList<>();
     ArrayList<Double> values_mg = new ArrayList<>();
@@ -58,7 +57,7 @@ public class ProgressPresentationActivity extends AppCompatActivity implements I
 
         name = getIntent().getExtras().getString("name");
 
-        queryPresenter.getData(sDataLock, this, values_imc, values_mg, values_icc, values_dates);
+        queryPresenter.getData(this, values_imc, values_mg, values_icc, values_dates);
     }
 
     private LineGraphSeries<DataPoint> createLineGraphSeries(ArrayList<Double> values, ArrayList<Date> values_dates){
@@ -86,7 +85,7 @@ public class ProgressPresentationActivity extends AppCompatActivity implements I
     public void goToMyProgress() { }
 
     @Override
-    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
+    public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
         imc_series = createLineGraphSeries(values_imc, values_dates);
         mg_series = createLineGraphSeries(values_mg, values_dates);
         icc_series = createLineGraphSeries(values_icc, values_dates);

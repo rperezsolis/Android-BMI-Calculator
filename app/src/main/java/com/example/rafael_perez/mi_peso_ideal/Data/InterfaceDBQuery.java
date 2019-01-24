@@ -9,8 +9,8 @@ public class InterfaceDBQuery {
 
     public interface View {
         void goToMyProgress();
-        void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc,
-                            ArrayList<Date> values_dates);
+        void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc,
+                             ArrayList<Date> values_dates);
         void noUser();
         void saved();
         void notSaved();
@@ -18,11 +18,11 @@ public class InterfaceDBQuery {
 
     public interface Presenter {
         void checkForUserName(Context context, String userName);
-        void saveResults(Object sDataLock, Context context, String name, String date, float IMC, float MG, float ICC);
-        void getData(Object sDataLock, Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+        void saveResults(Context context, String name, String date, float IMC, float MG, float ICC);
+        void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                      ArrayList<Double> values_icc, ArrayList<Date> values_dates);
-        void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc,
-                            ArrayList<Date> values_dates);
+        void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc,
+                             ArrayList<Date> values_dates);
         void goToMyProgress();
         void noUser();
         void saved();
@@ -31,8 +31,8 @@ public class InterfaceDBQuery {
 
     public interface Model {
         void checkForUserName(Context context, String userName);
-        void saveResults(Object sDataLock, Context context, String name, String date, float IMC, float MG, float ICC);
-        void getData(Object sDataLock, Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+        void saveResults(Context context, String name, String date, float IMC, float MG, float ICC);
+        void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                      ArrayList<Double> values_icc, ArrayList<Date> values_dates);
     }
 }

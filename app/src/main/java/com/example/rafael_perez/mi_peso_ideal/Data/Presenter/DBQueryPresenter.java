@@ -23,19 +23,19 @@ public class DBQueryPresenter implements InterfaceDBQuery.Presenter {
     }
 
     @Override
-    public void saveResults(Object sDataLock, Context context, String name, String date, float IMC, float MG, float ICC) {
-        if (view!=null) model.saveResults(sDataLock, context, name, date, IMC, MG, ICC);
+    public void saveResults(Context context, String name, String date, float IMC, float MG, float ICC) {
+        if (view!=null) model.saveResults(context, name, date, IMC, MG, ICC);
     }
 
     @Override
-    public void getData(Object sDataLock, Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+    public void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                         ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
-        if (view!=null) model.getData(sDataLock, context, values_imc, values_mg, values_icc, values_dates);
+        if (view!=null) model.getData(context, values_imc, values_mg, values_icc, values_dates);
     }
 
     @Override
-    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
-        if (view!=null) view.setGraphSeries(values_imc, values_mg, values_icc, values_dates);
+    public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
+        if (view!=null) view.setProgressData(values_imc, values_mg, values_icc, values_dates);
     }
 
     @Override

@@ -20,7 +20,7 @@ import com.example.rafael_perez.mi_peso_ideal.Form.InterfaceForm;
 import com.example.rafael_perez.mi_peso_ideal.Preferences;
 import com.example.rafael_perez.mi_peso_ideal.ProgressPresentationActivity;
 import com.example.rafael_perez.mi_peso_ideal.R;
-import com.example.rafael_perez.mi_peso_ideal.ResultsActivity;
+import com.example.rafael_perez.mi_peso_ideal.Results.View.ResultsActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
     }
 
     @Override
-    public void setGraphSeries(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
+    public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
 
     @Override
     public void noUser() {

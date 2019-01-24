@@ -8,8 +8,6 @@ import android.text.TextUtils;
 
 import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
 import com.example.rafael_perez.mi_peso_ideal.Pojo.ResultModel;
-import com.example.rafael_perez.mi_peso_ideal.ProgressPresentationActivity;
-import com.example.rafael_perez.mi_peso_ideal.ResultsActivity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +25,7 @@ import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID
 
 public class DBQueryModel implements InterfaceDBQuery.Model {
     private InterfaceDBQuery.Presenter presenter;
+    private final Object sDataLock = new Object();
 
     public DBQueryModel(InterfaceDBQuery.Presenter presenter){
         this.presenter = presenter;
@@ -45,8 +44,8 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
     }
 
     @Override
-    public void saveResults(Object sDataLock, Context context, String name, String date, float IMC, float MG, float ICC) {
-        synchronized (ResultsActivity.sDataLock){
+    public void saveResults(Context context, String name, String date, float IMC, float MG, float ICC) {
+        synchronized (sDataLock){
             ContentValues values = new ContentValues();  //ContentValues allows to store a data set
             values.put(COLUMN_USER_NAME, name);
             values.put(COLUMN_DATE, date);
@@ -60,8 +59,8 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
     }
 
     @Override
-    public void getData(Object sDataLock, Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
-        synchronized (ProgressPresentationActivity.sDataLock){
+    public void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
+        synchronized (sDataLock){
             ArrayList<ResultModel> results_list= new ArrayList<>();
             String[] projection = {_ID, COLUMN_USER_NAME, COLUMN_DATE, COLUMN_IMC, COLUMN_MG, COLUMN_ICC};
             Cursor cursor = context.getContentResolver().query(CONTENT_URI, projection, null, null, null);
@@ -86,6 +85,6 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
                 }
             }
         }
-        if (values_imc!=null && values_imc.size()>0) presenter.setGraphSeries(values_imc, values_mg, values_icc, values_dates);
+        if (values_imc!=null && values_imc.size()>0) presenter.setProgressData(values_imc, values_mg, values_icc, values_dates);
     }
 }
