@@ -13,19 +13,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
-import com.example.rafael_perez.mi_peso_ideal.Form.Presenter.MainPresenter;
+import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Form.InterfaceForm;
+import com.example.rafael_perez.mi_peso_ideal.Form.Presenter.MainPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Preferences;
 import com.example.rafael_perez.mi_peso_ideal.ProgressPresentationActivity;
 import com.example.rafael_perez.mi_peso_ideal.R;
 import com.example.rafael_perez.mi_peso_ideal.Results.View.ResultsActivity;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements InterfaceForm.View, InterfaceDBQuery.View {
+public class MainActivity extends AppCompatActivity implements
+        InterfaceForm.View,
+        InterfaceDBQuery.InterfaceGoToMyProgress.View {
     private Spinner spinner_physical_activity;
     private EditText et_name, et_age, et_weight, et_height, et_neck, et_waist, et_hip;
     private ImageView iv_man;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
     float[] data;
     float[] calories;
     private InterfaceForm.Presenter formPresenter;
-    private InterfaceDBQuery.Presenter queryPresenter;
+    private InterfaceDBQuery.InterfaceGoToMyProgress.Presenter queryPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,18 +196,10 @@ public class MainActivity extends AppCompatActivity implements InterfaceForm.Vie
     }
 
     @Override
-    public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
-
-    @Override
     public void noUser() {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.container),getString(R.string.no_user), Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
-
-    @Override
-    public void saved() {}
-    @Override
-    public void notSaved() {}
 
     public void maleGenre(View h){
         genre = 1;

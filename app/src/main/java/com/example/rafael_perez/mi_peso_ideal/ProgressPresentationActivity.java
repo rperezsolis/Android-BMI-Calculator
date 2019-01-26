@@ -23,7 +23,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ProgressPresentationActivity extends AppCompatActivity implements InterfaceDBQuery.View {
+public class ProgressPresentationActivity extends AppCompatActivity implements InterfaceDBQuery.InterfaceGetAllDataQuery.View {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     String name;
@@ -34,13 +34,12 @@ public class ProgressPresentationActivity extends AppCompatActivity implements I
     static LineGraphSeries<DataPoint> imc_series;
     static LineGraphSeries<DataPoint> mg_series;
     static LineGraphSeries<DataPoint> icc_series;
-    private InterfaceDBQuery.Presenter queryPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_presentation);
-        queryPresenter = new DBQueryPresenter(this);
+        InterfaceDBQuery.InterfaceGetAllDataQuery.Presenter get_data_presenter = new DBQueryPresenter(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_charts);
@@ -57,7 +56,7 @@ public class ProgressPresentationActivity extends AppCompatActivity implements I
 
         name = getIntent().getExtras().getString("name");
 
-        queryPresenter.getData(this, values_imc, values_mg, values_icc, values_dates);
+        get_data_presenter.getData(this, values_imc, values_mg, values_icc, values_dates);
     }
 
     private LineGraphSeries<DataPoint> createLineGraphSeries(ArrayList<Double> values, ArrayList<Date> values_dates){
@@ -82,21 +81,11 @@ public class ProgressPresentationActivity extends AppCompatActivity implements I
     }
 
     @Override
-    public void goToMyProgress() { }
-
-    @Override
     public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
         imc_series = createLineGraphSeries(values_imc, values_dates);
         mg_series = createLineGraphSeries(values_mg, values_dates);
         icc_series = createLineGraphSeries(values_icc, values_dates);
     }
-
-    @Override
-    public void noUser() { }
-    @Override
-    public void saved() { }
-    @Override
-    public void notSaved() { }
 
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";

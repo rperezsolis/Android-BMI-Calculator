@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
-import com.example.rafael_perez.mi_peso_ideal.Pojo.ResultModel;
+import com.example.rafael_perez.mi_peso_ideal.Objects.ResultModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,12 +23,25 @@ import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.COL
 import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract.CONTENT_URI;
 import static com.example.rafael_perez.mi_peso_ideal.Data.ProgressDBContract._ID;
 
-public class DBQueryModel implements InterfaceDBQuery.Model {
-    private InterfaceDBQuery.Presenter presenter;
+public class DBQueryModel implements
+        InterfaceDBQuery.InterfaceGoToMyProgress.Model,
+        InterfaceDBQuery.InterfaceSaveResults.Model,
+        InterfaceDBQuery.InterfaceGetAllDataQuery.Model {
+    private InterfaceDBQuery.InterfaceGoToMyProgress.Presenter my_progress_presenter;
+    private InterfaceDBQuery.InterfaceSaveResults.Presenter save_results_presenter;
+    private InterfaceDBQuery.InterfaceGetAllDataQuery.Presenter get_data_presenter;
     private final Object sDataLock = new Object();
 
-    public DBQueryModel(InterfaceDBQuery.Presenter presenter){
-        this.presenter = presenter;
+    public DBQueryModel(InterfaceDBQuery.InterfaceGoToMyProgress.Presenter presenter){
+        this.my_progress_presenter = presenter;
+    }
+
+    public DBQueryModel(InterfaceDBQuery.InterfaceSaveResults.Presenter presenter){
+        this.save_results_presenter = presenter;
+    }
+
+    public DBQueryModel(InterfaceDBQuery.InterfaceGetAllDataQuery.Presenter presenter){
+        this.get_data_presenter = presenter;
     }
 
     @Override
@@ -38,9 +51,9 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
         String[] selectionArgs = new String[] {userName};
         Cursor cursor = context.getContentResolver().query(CONTENT_URI, projection, selection, selectionArgs, null);
         if (cursor!=null && cursor.getCount()==0 || TextUtils.isEmpty(userName)) {
-            presenter.noUser();
+            my_progress_presenter.noUser();
             cursor.close();
-        } else presenter.goToMyProgress();
+        } else my_progress_presenter.goToMyProgress();
     }
 
     @Override
@@ -53,8 +66,8 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
             values.put(COLUMN_MG, MG);
             values.put(COLUMN_ICC, ICC);
             Uri uri = context.getContentResolver().insert(CONTENT_URI, values);
-            if (uri == null) presenter.notSaved();
-            else presenter.saved();
+            if (uri == null) save_results_presenter.notSaved();
+            else save_results_presenter.saved();
         }
     }
 
@@ -85,6 +98,6 @@ public class DBQueryModel implements InterfaceDBQuery.Model {
                 }
             }
         }
-        if (values_imc!=null && values_imc.size()>0) presenter.setProgressData(values_imc, values_mg, values_icc, values_dates);
+        if (values_imc!=null && values_imc.size()>0) get_data_presenter.setProgressData(values_imc, values_mg, values_icc, values_dates);
     }
 }

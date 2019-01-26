@@ -20,10 +20,12 @@ import com.example.rafael_perez.mi_peso_ideal.Results.InterfaceResults;
 import com.example.rafael_perez.mi_peso_ideal.Results.Presenter.ResultsPresenter;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class ResultsActivity extends AppCompatActivity implements InterfaceDBQuery.View, InterfaceResults.View {
+public class ResultsActivity extends AppCompatActivity implements
+        InterfaceDBQuery.InterfaceGoToMyProgress.View,
+        InterfaceDBQuery.InterfaceSaveResults.View,
+        InterfaceResults.View {
     float data[] = new float[5];
     float calories[] = new float[3];
     String name;
@@ -32,13 +34,15 @@ public class ResultsActivity extends AppCompatActivity implements InterfaceDBQue
     LinearLayout results_imc_mg;
     LinearLayout results_icc;
     String date;
-    private InterfaceDBQuery.Presenter queryPresenter;
+    private InterfaceDBQuery.InterfaceGoToMyProgress.Presenter my_progress_presenter;
+    private InterfaceDBQuery.InterfaceSaveResults.Presenter save_results_presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        queryPresenter = new DBQueryPresenter(this);
+        my_progress_presenter = new DBQueryPresenter((InterfaceDBQuery.InterfaceGoToMyProgress.View) this);
+        save_results_presenter = new DBQueryPresenter((InterfaceDBQuery.InterfaceSaveResults.View) this);
         InterfaceResults.Presenter resultsPresenter = new ResultsPresenter(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -72,10 +76,10 @@ public class ResultsActivity extends AppCompatActivity implements InterfaceDBQue
         date = String.valueOf(dateFormat.format(Date));
 
         Button btn_save_data = findViewById(R.id.guardar);
-        btn_save_data.setOnClickListener(v -> queryPresenter.saveResults(this, name, date, IMC, MG, ICC));
+        btn_save_data.setOnClickListener(v -> save_results_presenter.saveResults(this, name, date, IMC, MG, ICC));
 
         Button plot = findViewById(R.id.graficar);
-        plot.setOnClickListener(v -> queryPresenter.checkForUserName(this, name));
+        plot.setOnClickListener(v -> my_progress_presenter.checkForUserName(this, name));
 
         resultsPresenter.setLevel(genre, IMC, MG, ICC);
 
@@ -98,9 +102,6 @@ public class ResultsActivity extends AppCompatActivity implements InterfaceDBQue
         startActivity(intent);
         overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);
     }
-
-    @Override
-    public void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) { }
 
     @Override
     public void noUser() {

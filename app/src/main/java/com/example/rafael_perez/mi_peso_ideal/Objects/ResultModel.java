@@ -1,10 +1,9 @@
-package com.example.rafael_perez.mi_peso_ideal.Pojo;
+package com.example.rafael_perez.mi_peso_ideal.Objects;
 
 public class ResultModel { private int Result_Number;
     private String Nombre, Fecha;
     private Double IMC, MG, ICC;
 
-    //constructor
     public ResultModel(int Result_Number, String Nombre, String Fecha, Double IMC, Double MG, Double ICC) {
         this.Result_Number = Result_Number;
         this.Nombre        = Nombre;
@@ -14,7 +13,6 @@ public class ResultModel { private int Result_Number;
         this.ICC           = ICC;
     }
 
-    //metodos
     public int getResult_Number() {
         return Result_Number;
     }
