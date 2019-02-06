@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Progress.ProgressActivity"
+            android:label="@string/title_activity_progress"></activity>
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -18,20 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Form.View.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Results.View.ResultsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
         <activity
-            android:name=".ProgressPresentationActivity"
-            android:label="@string/title_activity_results_presentation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".Form.View.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Results.View.ResultsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
-            android:authorities="com.example.rafael_perez.mi_peso_ideal"
             android:name=".Data.ProgressProvider"
-            android:exported="false"/>
+            android:authorities="com.example.rafael_perez.mi_peso_ideal"
+            android:exported="false" />
     </application>
 
 </manifest>

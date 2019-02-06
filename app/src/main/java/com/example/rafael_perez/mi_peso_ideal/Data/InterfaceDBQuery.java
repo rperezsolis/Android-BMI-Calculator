@@ -51,14 +51,14 @@ public class InterfaceDBQuery {
         }
 
         public interface Presenter {
-            void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+            void getData(Context context, String userName, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                          ArrayList<Double> values_icc, ArrayList<Date> values_dates);
             void setProgressData(ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc,
                                  ArrayList<Date> values_dates);
         }
 
         public interface Model {
-            void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+            void getData(Context context, String userName, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                          ArrayList<Double> values_icc, ArrayList<Date> values_dates);
         }
     }

@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
-import com.example.rafael_perez.mi_peso_ideal.Objects.ResultModel;
+import com.example.rafael_perez.mi_peso_ideal.Pojo.ResultModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,11 +72,13 @@ public class DBQueryModel implements
     }
 
     @Override
-    public void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
+    public void getData(Context context, String userName, ArrayList<Double> values_imc, ArrayList<Double> values_mg, ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
         synchronized (sDataLock){
             ArrayList<ResultModel> results_list= new ArrayList<>();
             String[] projection = {_ID, COLUMN_USER_NAME, COLUMN_DATE, COLUMN_IMC, COLUMN_MG, COLUMN_ICC};
-            Cursor cursor = context.getContentResolver().query(CONTENT_URI, projection, null, null, null);
+            String selection = COLUMN_USER_NAME + "=?";
+            String[] selectionArgs = new String[] {userName};
+            Cursor cursor = context.getContentResolver().query(CONTENT_URI, projection, selection, selectionArgs, null);
             if (cursor.moveToFirst()) {
                 do {
                     ResultModel result_model = new ResultModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2),

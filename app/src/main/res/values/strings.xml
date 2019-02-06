@@ -2,7 +2,7 @@
     <string name="app_name">Calculadora Mi Peso Ideal</string>
     <string name="title_calculator">Calculadora Mi Peso Ideal</string>
     <string name="title_my_results">Mis Resultados</string>
-    <string name="title_charts">Mis avances</string>
+    <string name="title_progress">Mis avances</string>
 
     <string name="boton_calculadora">Ir a la Calculadora</string>
     <string name="bienvenida">Mídete, Conócete,\nConstrúyete</string>
@@ -91,6 +91,13 @@
     <string name="tab_text_3">ICC</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_progress">ProgressActivity</string>
+
+    <string name="title_graphs">Gráficas</string>
+    <string name="title_list">Lista</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
 

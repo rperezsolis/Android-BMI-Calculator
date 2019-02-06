@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.rafael_perez.mi_peso_ideal.Data.InterfaceDBQuery;
 import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
-import com.example.rafael_perez.mi_peso_ideal.ProgressPresentationActivity;
+import com.example.rafael_perez.mi_peso_ideal.Progress.ProgressActivity;
 import com.example.rafael_perez.mi_peso_ideal.R;
 import com.example.rafael_perez.mi_peso_ideal.Results.InterfaceResults;
 import com.example.rafael_perez.mi_peso_ideal.Results.Presenter.ResultsPresenter;
@@ -97,7 +97,7 @@ public class ResultsActivity extends AppCompatActivity implements
 
     @Override
     public void goToMyProgress() {
-        Intent intent = new Intent(ResultsActivity.this, ProgressPresentationActivity.class);
+        Intent intent = new Intent(ResultsActivity.this, ProgressActivity.class);
         intent.putExtra("name", name);
         startActivity(intent);
         overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);

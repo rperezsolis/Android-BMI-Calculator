@@ -1,4 +1,4 @@
-package com.example.rafael_perez.mi_peso_ideal.Objects;
+package com.example.rafael_perez.mi_peso_ideal.Pojo;
 
 public class ResultModel { private int Result_Number;
     private String Nombre, Fecha;

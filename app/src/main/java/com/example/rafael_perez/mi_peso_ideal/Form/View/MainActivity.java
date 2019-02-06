@@ -18,7 +18,7 @@ import com.example.rafael_perez.mi_peso_ideal.Data.Presenter.DBQueryPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Form.InterfaceForm;
 import com.example.rafael_perez.mi_peso_ideal.Form.Presenter.MainPresenter;
 import com.example.rafael_perez.mi_peso_ideal.Preferences;
-import com.example.rafael_perez.mi_peso_ideal.ProgressPresentationActivity;
+import com.example.rafael_perez.mi_peso_ideal.Progress.ProgressActivity;
 import com.example.rafael_perez.mi_peso_ideal.R;
 import com.example.rafael_perez.mi_peso_ideal.Results.View.ResultsActivity;
 
@@ -189,7 +189,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void goToMyProgress() {
-        Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);
+        Intent intent = new Intent(MainActivity.this, ProgressActivity.class);
+        //Intent intent = new Intent(MainActivity.this, ProgressPresentationActivity.class);
         intent.putExtra("name", et_name.getText().toString());
         startActivity(intent);
         overridePendingTransition(R.anim.trans_enter, R.anim.trans_exit);

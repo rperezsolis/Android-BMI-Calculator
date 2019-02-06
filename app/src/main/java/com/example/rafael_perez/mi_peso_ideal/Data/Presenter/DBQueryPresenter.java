@@ -45,9 +45,9 @@ public class DBQueryPresenter implements
     }
 
     @Override
-    public void getData(Context context, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
+    public void getData(Context context, String userName, ArrayList<Double> values_imc, ArrayList<Double> values_mg,
                         ArrayList<Double> values_icc, ArrayList<Date> values_dates) {
-        if (get_data_view!=null) get_data_model.getData(context, values_imc, values_mg, values_icc, values_dates);
+        if (get_data_view!=null) get_data_model.getData(context, userName, values_imc, values_mg, values_icc, values_dates);
     }
 
     @Override
